@@ -1,7 +1,7 @@
 import { StyleSheet, Text, View, FlatList } from 'react-native'
 import CategoryItem from './CategoryItem';
 
-export default function Categories({ setCategory }) {
+export default function Categories({ navigation }) {
 
     const categorias = [
         {
@@ -37,13 +37,13 @@ export default function Categories({ setCategory }) {
         {
             id: 6,
             name: 'Personajes masculinos',
-            category: 'gender=female',
+            category: 'gender=male',
             image: 'https://hips.hearstapps.com/hmg-prod/images/rick-y-morty-temporada-5-capitulo-1-nimbus-1624360640.jpeg?crop=0.8466666666666667xw:1xh;center,top&resize=1200:*'
         },
         {
             id: 7,
             name: 'Personajes femeninos',
-            category: 'gender=male',
+            category: 'gender=female',
             image: 'https://hips.hearstapps.com/hmg-prod/images/rick-and-morty-season-4-summer-and-beth-1576748877.jpg'
         },
         {
@@ -65,7 +65,7 @@ export default function Categories({ setCategory }) {
           <FlatList
             data={categorias}
             keyExtractor={(item) => item.id}
-            renderItem={({ item }) => <CategoryItem item={item} setCategory={setCategory} />}
+            renderItem={({ item }) => <CategoryItem item={item} navigation={navigation} />}
             numColumns={2}
           />
         </View>
@@ -76,7 +76,7 @@ export default function Categories({ setCategory }) {
       container: {
         width: "100%",
         flexDirection: "row",
-        padding: 20,
+        paddingHorizontal: 10,
       }
     });
     

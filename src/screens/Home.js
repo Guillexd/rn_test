@@ -1,20 +1,26 @@
-import { StyleSheet, View } from 'react-native'
-import React from 'react'
-import Header from '../components/Header'
-import Categories from '../components/Categories'
+import { SafeAreaView, StyleSheet, View } from "react-native";
+import React from "react";
+import Categories from "../components/Categories";
+import { colors } from "../global/colors";
 
-export default function Home({ setCategory }) {
+export default function Home({ navigation }) {
   return (
-    <View style={styles.container}>
-      <Header title='Categorias' />
-      <Categories setCategory={setCategory} />
-    </View>
-  )
+    <SafeAreaView
+      style={{
+        flex: 1,
+        backgroundColor: colors.gray1,
+        alignItems: "center",
+      }}
+    >
+      <View style={styles.container}>
+        <Categories navigation={navigation} />
+      </View>
+    </SafeAreaView>
+  );
 }
 
 const styles = StyleSheet.create({
   container: {
-    width: '100%',
-    paddingBottom: 140,
-  }
-})
+    width: "100%",
+  },
+});

@@ -35,6 +35,7 @@ export default function Search({ setKeyword, loading }) {
   };
 
   const search = () => {
+    if (input.length === 0) return;
     const expression = /.*[0-9].*/;
     if (expression.test(input)) {
       setError("No debe contener números");
@@ -81,7 +82,7 @@ export default function Search({ setKeyword, loading }) {
         >
           <Entypo
             name="circle-with-cross"
-            color={isPressedX ? colors.green2 : colors.green3}
+            color={isPressedX ? 'red' : colors.green3}
             size={isPressedX ? 30 : 25}
           />
         </Pressable>

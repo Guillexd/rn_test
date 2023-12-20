@@ -1,16 +1,9 @@
-import {
-  StyleSheet,
-  Text,
-  Pressable,
-  Image,
-  TouchableOpacity,
-} from "react-native";
-import { AntDesign } from '@expo/vector-icons';
+import { StyleSheet, Text, Pressable, Image, SafeAreaView } from "react-native";
 import { colors } from "../global/colors";
-import Header from "../components/Header";
 import { useState } from "react";
 
-export default function ItemListCategories({ character, setCharacter }) {
+export default function ItemDetail({ navigation, route }) {
+  const { character } = route.params;
 
   const [isPressed, setIsPressed] = useState(false);
 
@@ -23,38 +16,37 @@ export default function ItemListCategories({ character, setCharacter }) {
   };
 
   return (
-    <>
-      <Header title={`Detalles de ${character.name}`} />
-      <TouchableOpacity 
-        style={{ backgroundColor: colors.green2, width: '100%', padding: 5, alignItems: 'center'}}
-        onPress={() => setCharacter('')}>
-        <AntDesign name="banckward" size={24} color="black" />
-        <Text>Volver a la categoria</Text>
-      </TouchableOpacity>
+    <SafeAreaView
+      style={{
+        flex: 1,
+        backgroundColor: colors.gray1,
+        alignItems: "center",
+        padding: 5
+      }}
+    >
       <Pressable
         style={[styles.container, isPressed && styles.pressablePressed]}
         onPressIn={handlePressIn}
         onPressOut={handlePressOut}
       >
-        <Text>xd</Text>
         <Image
-            style={{
-                height: 300,
-                borderRadius: 20,
-                resizeMode: "contain",
-            }}
-            source={{
-                uri: character.image,
-            }}
-            />
-            <Text style={styles.text}>Nombre: {character.name}</Text>
-            <Text style={styles.text}>Estado: {character.status}</Text>
-            <Text style={styles.text}>Especie: {character.species}</Text>
-            <Text style={styles.text}>Género: {character.gender}</Text>
-            <Text style={styles.text}>Ubicación: {character.location?.name}</Text>
-            <Text style={styles.text}>Origen: {character.origin?.name}</Text>
+          style={{
+            height: 300,
+            borderRadius: 20,
+            resizeMode: "contain",
+          }}
+          source={{
+            uri: character.image,
+          }}
+        />
+        <Text style={styles.text}>Nombre: {character.name}</Text>
+        <Text style={styles.text}>Estado: {character.status}</Text>
+        <Text style={styles.text}>Especie: {character.species}</Text>
+        <Text style={styles.text}>Género: {character.gender}</Text>
+        <Text style={styles.text}>Ubicación: {character.location?.name}</Text>
+        <Text style={styles.text}>Origen: {character.origin?.name}</Text>
       </Pressable>
-    </>
+    </SafeAreaView>
   );
 }
 
@@ -68,14 +60,10 @@ const styles = StyleSheet.create({
     padding: 15,
   },
   text: {
-    color: colors.green1,
-    fontSize: 17,
-    marginVertical: 8,
-  },
-  price: {
-    color: colors.white,
-    fontWeight: "bold",
+    color: colors.green2,
     fontSize: 20,
+    marginVertical: 8,
+    fontFamily: 'Josefin',
   },
   pressablePressed: {
     backgroundColor: colors.gray3,

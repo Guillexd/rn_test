@@ -1,7 +1,7 @@
 import { StyleSheet, Text, View, Pressable, Image } from "react-native";
 import { useState } from "react";
 
-export default function CategoryItem({ item, setCategory }) {
+export default function CategoryItem({ item, navigation }) {
   const [isPressed, setIsPressed] = useState(false);
 
   const handlePressIn = () => {
@@ -15,7 +15,7 @@ export default function CategoryItem({ item, setCategory }) {
   return (
     <Pressable
       style={[styles.container, isPressed && styles.pressablePressed]}
-      onLongPress={() => setCategory(item.category)}
+      onLongPress={() => navigation.navigate("CharacterList", {category: item.category})}
       onPressIn={handlePressIn}
       onPressOut={handlePressOut}
     >
@@ -30,6 +30,7 @@ export default function CategoryItem({ item, setCategory }) {
         }}
       />
       <Text style={styles.text}>{item.name}</Text>
+      <Text style={{ color: "red" }}>Mantén presionado</Text>
     </Pressable>
   );
 }
