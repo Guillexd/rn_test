@@ -1,9 +1,26 @@
-import { StyleSheet, Text, View, Pressable, Image } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  Pressable,
+  Image,
+  TouchableOpacity,
+} from "react-native";
 import { useState } from "react";
 import { colors } from "../global/colors";
+import { MaterialIcons } from "@expo/vector-icons";
+import { useSelector, useDispatch } from "react-redux";
+import {
+  addCharacter,
+  removeCharacter,
+} from "../features/characterList/characterListSlice";
 
 export default function CharacterItem({ character, navigation }) {
   const [isPressed, setIsPressed] = useState(false);
+  const characters = useSelector(
+    (state) => state.characterList.value.characters
+  );
+  const dispatch = useDispatch();
 
   const handlePressIn = () => {
     setIsPressed(true);
@@ -11,6 +28,14 @@ export default function CharacterItem({ character, navigation }) {
 
   const handlePressOut = () => {
     setIsPressed(false);
+  };
+
+  const handleAddCharacterToKart = () => {
+    dispatch(addCharacter({ id: character.id }));
+  };
+
+  const handleRemoveCharacterFromKart = () => {
+    dispatch(removeCharacter({ id: character.id }));
   };
 
   return (
@@ -33,7 +58,31 @@ export default function CharacterItem({ character, navigation }) {
       <Text style={styles.text}>Nombre: {character.name}</Text>
       <Text style={styles.text}>Especie: {character.species}</Text>
       <Text style={styles.text}>Género: {character.gender}</Text>
-      <Text style={{ color: "red" }}>Mantén presionado</Text>
+      <Text style={styles.price}>Precio $100.00</Text>
+      {!characters.some((charac) => charac === character.id) ? (
+        <TouchableOpacity
+          style={{ alignItems: "center" }}
+          onPress={handleAddCharacterToKart}
+        >
+          <MaterialIcons
+            name="add-shopping-cart"
+            size={40}
+            color={colors.green4}
+          />
+          <Text style={{ color: colors.green4 }}>Agregar</Text>
+        </TouchableOpacity>
+      ) : (
+        <TouchableOpacity
+          style={{ alignItems: "center" }}
+          onPress={handleRemoveCharacterFromKart}
+        >
+          <MaterialIcons name="remove-shopping-cart" size={40} color={"red"} />
+          <Text style={{ color: "red" }}>Quitar</Text>
+        </TouchableOpacity>
+      )}
+      <Text style={{ color: "red" }}>
+        Mantén presionado para ver más detalles
+      </Text>
     </Pressable>
   );
 }
@@ -49,12 +98,12 @@ const styles = StyleSheet.create({
   text: {
     color: colors.white,
     fontSize: 17,
-    marginVertical: 8,
+    marginVertical: 1,
   },
   price: {
-    color: colors.white,
+    color: colors.orange,
     fontWeight: "bold",
-    fontSize: 20,
+    fontSize: 18,
   },
   pressablePressed: {
     backgroundColor: colors.gray3,

@@ -2,7 +2,7 @@ import { StyleSheet, Text, Pressable, Image, SafeAreaView } from "react-native";
 import { colors } from "../global/colors";
 import { useState } from "react";
 
-export default function ItemDetail({ navigation, route }) {
+export default function ItemDetail({ route }) {
   const { character } = route.params;
 
   const [isPressed, setIsPressed] = useState(false);
@@ -32,7 +32,7 @@ export default function ItemDetail({ navigation, route }) {
         <Image
           style={{
             height: 300,
-            borderRadius: 20,
+            borderRadius: 10,
             resizeMode: "contain",
           }}
           source={{
@@ -55,7 +55,7 @@ const styles = StyleSheet.create({
     width: "100%",
     backgroundColor: colors.gray2,
     margin: 5,
-    borderRadius: 30,
+    borderRadius: 10,
     flex: 1,
     padding: 15,
   },

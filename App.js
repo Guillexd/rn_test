@@ -1,32 +1,35 @@
 import { StatusBar } from "react-native";
 import { colors } from "./src/global/colors";
 import { useCallback } from "react";
-import { useFonts } from 'expo-font';
-import * as SplashScreen from 'expo-splash-screen';
-import Navigator from "./src/navigation/Navigator";
+import { useFonts } from "expo-font";
+import * as SplashScreen from "expo-splash-screen";
+import TabNavigator from "./src/navigation/TabNavigator";
+import { store } from "./src/app/store";
+import { Provider } from "react-redux";
 
-SplashScreen.preventAutoHideAsync();    
+SplashScreen.preventAutoHideAsync();
 
 export default function App() {
-
   const [fontsLoaded] = useFonts({
-    'Josefin': require('./assets/Fonts/JosefinSans-Italic-VariableFont_wght.ttf'),
+    Josefin: require("./assets/Fonts/JosefinSans-Italic-VariableFont_wght.ttf"),
   });
 
   const onLayoutRootView = useCallback(async () => {
     if (fontsLoaded) {
-       SplashScreen.hideAsync();
+      SplashScreen.hideAsync();
     }
   }, [fontsLoaded]);
-  
+
   if (!fontsLoaded) {
-    return null
+    return null;
   }
 
   return (
     <>
       <StatusBar style="light" backgroundColor={colors.gray3} />
-      <Navigator onLayoutRootView={onLayoutRootView} />
+      <Provider store={store}>
+        <TabNavigator onLayoutRootView={onLayoutRootView} />
+      </Provider>
     </>
   );
 }
