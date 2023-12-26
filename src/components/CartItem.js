@@ -10,7 +10,7 @@ import {
 import { AntDesign } from "@expo/vector-icons";
 import { MaterialIcons } from "@expo/vector-icons";
 import { colors } from "../global/colors";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import CartItemModal from "./CartItemModal";
 import { useDispatch, useSelector } from "react-redux";
 import { setFalseReload } from "../features/characterList/characterListSlice";
@@ -18,7 +18,6 @@ import { setFalseReload } from "../features/characterList/characterListSlice";
 export default function CartItem({
   character,
   navigation,
-  dataFormated,
   setDataFormated,
 }) {
   const charactersInKartInfo = useSelector(
@@ -34,12 +33,12 @@ export default function CartItem({
   );
   const dispatch = useDispatch();
   useEffect(() => {
-    const parsedQuantity = parseInt(quantity, 10);
-
-    if (isNaN(parsedQuantity) || parsedQuantity <= 0) {
-      setQuantity("1");
-    }
     if (helper) {
+      const parsedQuantity = parseInt(quantity, 10);
+
+      if (isNaN(parsedQuantity) || parsedQuantity <= 0) {
+        setQuantity("1");
+      }
       setDataFormated((value) =>
         value.map((el) =>
           el.id === character.id ? { ...el, quantity: parseInt(quantity) } : el

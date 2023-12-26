@@ -45,6 +45,7 @@ export default function ItemDetail({ route }) {
         <Text style={styles.text}>Género: {character.gender}</Text>
         <Text style={styles.text}>Ubicación: {character.location?.name}</Text>
         <Text style={styles.text}>Origen: {character.origin?.name}</Text>
+        <Text style={styles.price}>Precio $100.00</Text>
       </Pressable>
     </SafeAreaView>
   );
@@ -67,5 +68,11 @@ const styles = StyleSheet.create({
   },
   pressablePressed: {
     backgroundColor: colors.gray3,
+  },
+  price: {
+    color: colors.orange,
+    fontFamily: 'Josefin',
+    fontWeight: "bold",
+    fontSize: 23,
   },
 });

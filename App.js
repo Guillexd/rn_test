@@ -12,6 +12,7 @@ SplashScreen.preventAutoHideAsync();
 export default function App() {
   const [fontsLoaded] = useFonts({
     Josefin: require("./assets/Fonts/JosefinSans-Italic-VariableFont_wght.ttf"),
+    Rubik: require("./assets/Fonts/RubikDoodleShadow-Regular.ttf"),
   });
 
   const onLayoutRootView = useCallback(async () => {

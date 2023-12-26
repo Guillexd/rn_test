@@ -27,12 +27,6 @@ export const characterListSlice = createSlice({
     setFalseReload: (state) => {
       state.value.mustReload = false;
     },
-    removeCharactersInKartInfo: (state, action) => {
-      state.value.charactersInKartInfo =
-        state.value.charactersInKartInfo.filter(
-          (character) => character.id !== action.payload.id
-        );
-    },
     setNewCharactersInKartInfo: (state, action) => {
       const newData = action.payload.map((el) => {
         return {

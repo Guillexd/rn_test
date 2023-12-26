@@ -71,7 +71,6 @@ export default function CartList({ navigation }) {
   useEffect(() => {
     if (!loading) {
       dataFormatedRef.current = dataFormated;
-      console.log("dataFormated ---- :3", new Date());
       dispatch(setNewCharactersInKartInfo(dataFormated));
     }
   }, [dataFormated]);
@@ -111,14 +110,13 @@ export default function CartList({ navigation }) {
               <CartItem
                 character={item}
                 navigation={navigation}
-                dataFormated={dataFormated}
                 setDataFormated={setDataFormated}
               />
             )}
           />
         )}
       </View>
-      <CartInfo />
+      <CartInfo loading={loading} />
     </SafeAreaView>
   );
 }
