@@ -10,12 +10,13 @@ import {
 import { AntDesign } from "@expo/vector-icons";
 import { MaterialIcons } from "@expo/vector-icons";
 import { colors } from "../global/colors";
-import { useEffect, useState } from "react";
+import { memo, useEffect, useState } from "react";
 import CartItemModal from "./CartItemModal";
 import { useDispatch, useSelector } from "react-redux";
 import { setFalseReload } from "../features/characterList/characterListSlice";
+import useDebounce from "../utils/useDebounce";
 
-export default function CartItem({
+export default memo(function CartItem({
   character,
   navigation,
   setDataFormated,
@@ -31,6 +32,7 @@ export default function CartItem({
       .find((value) => value.id === character.id)
       ?.quantity?.toString() ?? "1"
   );
+  const { debounceValue } = useDebounce(quantity)
   const dispatch = useDispatch();
   useEffect(() => {
     if (helper) {
@@ -45,7 +47,7 @@ export default function CartItem({
         )
       );
     }
-  }, [quantity]);
+  }, [debounceValue]);
   const handlePressIn = () => {
     setIsPressed(true);
   };
@@ -145,7 +147,7 @@ export default function CartItem({
       />
     </>
   );
-}
+})
 
 const styles = StyleSheet.create({
   container: {

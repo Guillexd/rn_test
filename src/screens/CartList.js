@@ -96,9 +96,7 @@ export default function CartList({ navigation }) {
       }}
     >
       <View style={styles.container}>
-        {loading ? (
-          <ActivityIndicator size={100} />
-        ) : dataFormated.error || dataFormated.length === 0 ? (
+        {dataFormated.error || dataFormated.length === 0 ? (
           <Text style={{ color: "red", textAlign: "center" }}>
             No hay productos guardados en este carrito.
           </Text>

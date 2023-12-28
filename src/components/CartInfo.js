@@ -2,21 +2,19 @@ import { Modal, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { colors } from "../global/colors";
 import { FontAwesome } from "@expo/vector-icons";
 import { useSelector } from "react-redux";
-import { useEffect, useState } from "react";
-import { AntDesign } from '@expo/vector-icons'; 
+import { useMemo, useState } from "react";
+import { AntDesign } from "@expo/vector-icons";
 
 export default function CartInfo({ loading }) {
   const charactersInKartInfo = useSelector(
     (state) => state.characterList.value.charactersInKartInfo
   );
-  const [totalPrice, setTotalPrice] = useState(0);
   const [showModal, setShowModal] = useState(false);
-  useEffect(() => {
-    const price = charactersInKartInfo.reduce(
+  const totalPrice = useMemo(() => {
+    return charactersInKartInfo.reduce(
       (accumulator, currentValue) => accumulator + currentValue.quantity * 100,
       0
     );
-    setTotalPrice(price);
   }, [charactersInKartInfo]);
   return (
     <>
@@ -31,28 +29,42 @@ export default function CartInfo({ loading }) {
           <Text style={styles.textButtom}>Comprar</Text>
         </TouchableOpacity>
       </View>
-      <Modal
-        visible={showModal}
-        onRequestClose={() => setShowModal(false)}
-        transparent={true}
-        animationType="slide"
-      >
-        <View style={styles.modalContainer}>
-          <View style={styles.popUpContainer}>
-            <AntDesign name="warning" size={180} color={colors.green3} style={{alignSelf: 'center'}} />
-            <Text style={styles.popUpText}>¿Estás seguro de realizar esta compra?</Text>
-            <Text style={styles.popUpWarning}>Esta acción no se podrá revertirla.</Text>
-            <View style={styles.optionsContainer}>
-              <TouchableOpacity style={styles.popUpCancelButtonContainer} onPress={() => setShowModal(false)}>
-                <Text style={styles.popUpCancelButton}>Cancelar</Text>
-              </TouchableOpacity>
-              <TouchableOpacity style={styles.popUpConfirmButtonContainer}>
-                <Text style={styles.popUpConfirmButton}>Confirmar</Text>
-              </TouchableOpacity>
+      {showModal && (
+        <Modal
+          visible={showModal}
+          onRequestClose={() => setShowModal(false)}
+          transparent={true}
+          animationType="slide"
+        >
+          <View style={styles.modalContainer}>
+            <View style={styles.popUpContainer}>
+              <AntDesign
+                name="warning"
+                size={180}
+                color={colors.green3}
+                style={{ alignSelf: "center" }}
+              />
+              <Text style={styles.popUpText}>
+                ¿Estás seguro de realizar esta compra?
+              </Text>
+              <Text style={styles.popUpWarning}>
+                Esta acción no se podrá revertirla.
+              </Text>
+              <View style={styles.optionsContainer}>
+                <TouchableOpacity
+                  style={styles.popUpCancelButtonContainer}
+                  onPress={() => setShowModal(false)}
+                >
+                  <Text style={styles.popUpCancelButton}>Cancelar</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.popUpConfirmButtonContainer}>
+                  <Text style={styles.popUpConfirmButton}>Confirmar</Text>
+                </TouchableOpacity>
+              </View>
             </View>
           </View>
-        </View>
-      </Modal>
+        </Modal>
+      )}
     </>
   );
 }
@@ -89,33 +101,33 @@ const styles = StyleSheet.create({
     fontSize: 18,
   },
   modalContainer: {
-    height: '100%',
+    height: "100%",
     backgroundColor: "rgba(26, 30, 37, 0.6)",
-    justifyContent: 'center',
+    justifyContent: "center",
   },
   popUpContainer: {
-    height: '50%',
+    height: "50%",
     backgroundColor: colors.gray3,
     marginHorizontal: 30,
     padding: 25,
     borderRadius: 10,
   },
   optionsContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-evenly',
+    flexDirection: "row",
+    justifyContent: "space-evenly",
     marginTop: 10,
   },
   popUpText: {
     color: colors.green1,
     fontSize: 25,
-    textAlign: 'center'
+    textAlign: "center",
   },
   popUpWarning: {
     color: colors.orange,
-    textAlign: 'center'
-  }, 
+    textAlign: "center",
+  },
   popUpCancelButtonContainer: {
-    backgroundColor: 'red',
+    backgroundColor: "red",
     paddingVertical: 10,
     paddingHorizontal: 20,
     borderRadius: 12,
@@ -123,7 +135,7 @@ const styles = StyleSheet.create({
   popUpCancelButton: {
     color: colors.white,
     fontSize: 17,
-  }, 
+  },
   popUpConfirmButtonContainer: {
     backgroundColor: colors.green2,
     paddingVertical: 10,
